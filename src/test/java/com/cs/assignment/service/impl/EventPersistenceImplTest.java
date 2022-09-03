@@ -31,7 +31,7 @@ public class EventPersistenceImplTest {
     private EventsLogRepository repository;
 
     @Test
-    void whenValidFile_ThenPersistData(CapturedOutput output) throws IOException {
+     void whenValidFile_ThenPersistData(CapturedOutput output) throws IOException {
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("Log.txt").getFile());
         Assertions.assertDoesNotThrow(() -> persistenceService.persistEvents(file.getAbsolutePath()));
@@ -40,13 +40,13 @@ public class EventPersistenceImplTest {
     }
 
     @Test
-    void whenInvalidFilepath_ThenError(){
+      void whenInvalidFilepath_ThenError(){
         FileNotFoundException exception = assertThrows(FileNotFoundException.class,()->persistenceService.persistEvents("C$$$$\\Data\\Log.txt"));
         assertEquals("C$$$$\\Data\\Log.txt (The system cannot find the path specified)", exception.getMessage());
     }
 
     @Test
-    void whenInvalidRecord_ThenLogMessageAndContinue(CapturedOutput output){
+    public void whenInvalidRecord_ThenLogMessageAndContinue(CapturedOutput output){
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("Log.txt").getFile());
         Assertions.assertDoesNotThrow(() -> persistenceService.persistEvents(file.getAbsolutePath()));
