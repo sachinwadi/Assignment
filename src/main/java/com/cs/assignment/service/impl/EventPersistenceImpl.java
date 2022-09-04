@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -50,19 +51,21 @@ public class EventPersistenceImpl implements EventPersistence {
         eventsGroupedById.forEach((key, value) -> {
                     Optional<Record> startRecord = value.stream().filter(x -> x.getState().equalsIgnoreCase("STARTED")).findAny();
                     Optional<Record> endRecord = value.stream().filter(x -> x.getState().equalsIgnoreCase("FINISHED")).findAny();
-                    long duration = -1L;
 
                     if (startRecord.isPresent() && endRecord.isPresent()) {
-                        duration = endRecord.get().getTimestamp() - startRecord.get().getTimestamp();
-                    }
+                        long duration = endRecord.get().getTimestamp() - startRecord.get().getTimestamp();
 
-                    events.add(EventsLogEntity.builder()
-                            .eventId(key)
-                            .eventDuration(duration)
-                            .type(startRecord.get().getType())
-                            .host(startRecord.get().getHost())
-                            .alert(duration > 40L)
-                            .build());
+                        EventsLogEntity entity = EventsLogEntity.builder()
+                                .eventId(key)
+                                .eventDuration(duration)
+                                .type(startRecord.get().getType())
+                                .host(startRecord.get().getHost())
+                                .alert(duration > 40L)
+                                .createdDate(LocalDateTime.now())
+                                .build();
+
+                        events.add(entity);
+                    }
                 }
         );
         repository.saveAll(events);

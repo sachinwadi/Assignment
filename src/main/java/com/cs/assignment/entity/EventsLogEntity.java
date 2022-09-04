@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "EventsLog", schema = "public")
@@ -36,4 +37,8 @@ public class EventsLogEntity {
 
     @Column(name = "Alert")
     private boolean alert;
+
+    @Column(name = "Created_Date")
+    @NotNull
+    private LocalDateTime createdDate;
 }

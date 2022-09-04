@@ -1,7 +1,7 @@
-com\cs\assignment\entity\EventsLogEntity$EventsLogEntityBuilder.class
 com\cs\assignment\service\EventPersistence.class
-com\cs\assignment\repository\EventsLogRepository.class
 com\cs\assignment\model\Record.class
+com\cs\assignment\entity\EventsLogEntity$EventsLogEntityBuilder.class
+com\cs\assignment\repository\EventsLogRepository.class
 com\cs\assignment\entity\EventsLogEntity.class
 com\cs\assignment\Main.class
 com\cs\assignment\service\impl\EventPersistenceImpl.class
